@@ -1,0 +1,303 @@
+body{
+	background-color: #FAFAFB;
+	font-family: 'Manrope', sans-serif;
+}
+
+.text-purple{
+	color: #532657 !important;
+}
+
+.text-gray{
+	color: #64607D !important;
+}
+
+.text-red{
+	color: #F04E21 !important;
+}
+
+.heading-title .heading {
+    font-size: 40px !important;
+    letter-spacing: initial;
+    font-family: 'Manrope';
+}
+
+.heading-title .heading {
+    font-size: 40px !important;
+    letter-spacing: initial;
+    font-family: 'Manrope';
+    font-weight: 800 !important;
+	margin-top: 30px;
+}
+
+.btn{
+    font-family: 'Manrope';
+    font-weight: 400;
+}
+
+.btn-primary{
+	border-color: #532657 !important;
+    background-color: #532657 !important;
+}
+
+.home .btn-primary{
+	padding: 10px 20px;
+}
+
+.btn-primary:hover{
+	border-color: #904797 !important;
+	background-color: #904797 !important;
+}
+
+.btn-secondary{
+	border-color: #532657 !important;
+	background-color: white !important;
+	color: #532657 !important;
+}
+
+.btn-secondary:hover{
+	border-color: #904797 !important;
+	background-color: #904797 !important;
+}
+
+.btn-green{
+	border-color: #C6E4B8 !important;
+    background-color: #C6E4B8 !important;
+	color: #030229 !important;
+}
+
+.btn-red{
+	background-color: #EDA490 !important;
+	color: #7D331F !important;
+}
+
+.btn-yellow{
+	background-color: #F4D78E !important;
+	color: #866718 !important;
+}
+
+.form-control{
+	box-shadow: 0 3px 5px 0 rgb(94 94 94 / 30%);
+	border: 0px;
+	font-size: 16px;
+}
+
+.largenum{
+	font-size: 36px;
+}
+
+.section-title .title{	
+	font-size: 30px !important;
+    letter-spacing: initial;
+    font-family: 'Manrope';
+    font-weight: 800 !important;
+    margin-top: 30px;
+}
+
+.home-hero{
+	padding-top: 170px;
+	padding-bottom: 60px;
+}
+
+.section{
+	padding-top: 0px;
+}
+
+.stepnum-container{
+	padding: 10px 20px;
+	font-size: 36px;
+	font-weight: bold;
+	border-radius: 20px;
+}
+
+.stepnum-container.one{
+	color: #8B6506;
+	background-color: #F4D78E;
+}
+
+.card-body .one{
+	color: #8B6506;
+}
+
+.stepnum-container.two{
+	color: #C9431E;
+	background-color: #EDA490;
+}
+
+.card-body .two{
+	color: #C9431E;
+}
+
+.stepnum-container.three{
+	color: #2F740F;
+	background-color: #C6E4B8;
+}
+
+.card-body .three{
+	color: #2F740F;
+}
+
+.card-body h5{
+	font-size: 24px !important;
+	font-weight: 800;
+}
+
+.card{
+	background-color: white;
+}
+
+.margin-top-150{
+	margin-top: 150px;
+}
+
+.margin-top-40{
+	margin-top: 40px;
+}
+
+
+.subcribe-form form{
+	margin: initial;
+}
+
+.page-header{
+	font-size: 24px;
+	font-weight: bold;
+}
+
+
+.card-body{
+	position: relative;
+}
+
+.findmodel .card-body{
+	height: 255px;
+}
+
+.model-name{
+	font-weight: bold;
+	font-size: 24px;
+}
+
+.model-description{
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.model-author{
+	font-weight: bold;
+	font-size: 14px;
+	color: #F04E21;
+}
+
+.model-tags{
+	position: absolute;
+	bottom: 20px;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.indimodeltags{
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+a .indimodeltags {
+    color: black;
+}
+
+.tag-purple{
+	background-color: #E4A4DC;
+}
+
+.tag-green{
+	background-color: #C6E4B8;
+}
+
+.tag-yellow{
+	background-color: #F4D78E;
+}
+
+.pagination{
+	justify-content: center;
+}
+
+.pagination .page-item.active .page-link{
+	border-color: #532657 !important;
+    background-color: #532657 !important;
+}
+
+.pagination .page-item .page-link:hover {
+	border-color: #532657;
+    background-color: #532657;
+}
+
+.modal-title{
+	font-weight: bold;
+	font-size: 24px !important;
+	margin-top: 10px;
+}
+
+.modal-body{
+	margin-bottom: 20px;
+}
+
+.modal-body .modalmodeldesc{
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.modal-body .modalmodelauthor{
+	font-weight: bold;
+	font-size: 14px;
+	color: #F04E21;
+}
+
+.modal-body .sectiontitle{
+	color: #C9431E;
+	font-weight: 800;
+	font-size: 18px;
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+
+.modal-body .sectionbody{
+	color: black;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.adv-search{
+	margin-top: 20px;
+	cursor: pointer;
+}
+
+.adv-search:hover{
+	text-decoration: underline;
+}
+
+.adv-search i{
+	padding-left: 20px;
+}
+
+.advsearch-formcontainer{
+	padding: 20px;
+	border-radius: 10px;
+	margin-bottom: 20px;
+	background-color: white;
+}
+
+.textalign-right{
+	text-align: right;
+}
+
+.form-control:focus{
+	box-shadow: 0 3px 5px 0 rgb(94 94 94 / 30%);
+}
+
+
+@media (min-width: 576px){
+.modal-dialog {
+    max-width: 800px;
+    margin: 5rem auto;
+}
+}

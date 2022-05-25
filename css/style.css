@@ -475,17 +475,17 @@ a.text-white:hover, a.text-white:focus {
 }
 
 .bg-footer {
-  background-color: #27314f !important;
+  background-color: #50285a !important;
 }
 
 .bg-soft-footer {
-  background-color: rgba(39, 49, 79, 0.1) !important;
-  border: 1px solid rgba(39, 49, 79, 0.1) !important;
-  color: #27314f !important;
+  background-color: white !important;
+  border: 1px solid white !important;
+  color: #50285a!important;
 }
 
 .text-footer {
-  color: #27314f !important;
+  color: #50285a !important;
 }
 
 a {
@@ -566,8 +566,8 @@ a.text-footer:hover, a.text-footer:focus {
 }
 
 .btn-primary {
-  background-color: #4259ed !important;
-  border: 1px solid #4259ed !important;
+  background-color: #50285a !important;
+  border: 1px solid #50285a !important;
   color: #ffffff !important;
   box-shadow: 0 3px 5px 0 rgba(66, 89, 237, 0.3);
 }
@@ -1799,18 +1799,19 @@ textarea.form-control {
 }
 
 .social-icon li a:hover {
-  background-color: #4259ed;
-  border-color: #4259ed !important;
+  background-color: #dca0dc !important;
+  border-color: #50285a !important;
   color: #ffffff !important;
 }
 
 .social-icon li a:hover .fea-social {
-  fill: #4259ed;
+  background-color: #50285a;
+  fill: #50285a !important;
 }
 
 .social-icon.social li a {
-  color: #adb5bd;
-  border-color: #313e64;
+  color: #ffffff;
+  border-color: #ffffff;
 }
 
 .social-icon.social-light li a {
@@ -3836,11 +3837,11 @@ input[type="range"]:focus {
 footer {
   padding: 60px 0;
   position: relative;
-  color: #adb5bd;
+  color: #ffffff;
 }
 
 footer .text-foot {
-  color: #adb5bd;
+  color: #ffffff;
 }
 
 footer .footer-head {
@@ -3870,7 +3871,7 @@ footer .footer-list li:last-child {
 }
 
 footer .footer-bar, footer.footer-bar {
-  border-top: 1px solid #313e64;
+  border-top: 1px solid #ffffff;
 }
 
 #style-switcher {

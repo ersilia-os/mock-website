@@ -19,6 +19,135 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		
+		<script>
+			$(document).ready(function(){
+				var x = 0;
+				
+				$("#addmore").click(function(){
+					$("#smiles-container").prepend("<div class='row mt-4' id=formrow"+x+"><div class='col-md-6'><input type='text' class='form-control text-gray' placeholder='Enter SMILES here' required=''></div><div class='col-md-6'><button class='btn btn-red btn-removesmiles' id='"+x+"'>Remove</button></div></div>");
+					x=x+1;
+				});			
+				
+				$(document).on("click", ".btn-removesmiles" , function() {
+				            $(this).parent().parent().remove();
+				        });
+				
+			});
+		</script>
+			
+		<!-- Start of RDKIT JS Code -->
+		<script src="https://unpkg.com/@rdkit/rdkit/Code/MinimalLib/dist/RDKit_minimal.js"></script>
+		<script>
+		  onRuntimeInitialized: initRDKitModule().then(function(instance) {
+		    RDKitModule = instance;
+		    console.log('version: ' + RDKitModule.version());
+		    var m1 = RDKitModule.get_mol("c1ccccc1O");
+		    console.log('smiles: ' + m1.get_smiles());
+		    m1.delete();
+		    callback("");
+		  });
+		  function form_to_details(details) {
+		    var controls = ["addAtomIndices", "addBondIndices", "explicitMethyl", "addStereoAnnotation"];
+		    for (i in controls) {
+		      var control = controls[i];
+		      details[control] = document.getElementById(control).checked
+		    }
+		    var texts = ["legend", "bondLineWidth", "legendFontSize"];
+		    for (i in texts) {
+		      var control = texts[i];
+		      details[control] = document.getElementById(control).value
+		    }
+		  }
+		  function draw_with_highlights(mol, details) {
+		    form_to_details(details);
+		    var tdetails = JSON.stringify(details)
+		    var svg = mol.get_svg_with_highlights(tdetails);
+		    if (svg == "") return;
+		    var ob = document.getElementById("drawing");
+		    ob.outerHTML = "<div id='drawing'>" + svg + "</div>";
+		    var canvas = document.getElementById("rdkit-canvas");
+		    mol.draw_to_canvas_with_highlights(canvas, tdetails);
+
+		  }
+		  function draw(mol) {
+		    var details = {};
+		    draw_with_highlights(mol, details);
+		    return;
+		    var svg = mol.get_svg();
+		    if (svg == "") return;
+		    var ob = document.getElementById("drawing");
+		    ob.outerHTML = "<div id='drawing'>" + svg + "</div>";
+		    var canvas = document.getElementById("rdkit-canvas");
+		    mol.draw_to_canvas(canvas, -1, -1);
+		  }
+		  function callback(text, update_descrs) {
+		    var mol = RDKitModule.get_mol(text);
+		    if (mol.is_valid()) {
+		      draw(mol);
+		      var ob = document.getElementById("can_smiles");
+		      ob.outerHTML = "<div id='can_smiles'>" + mol.get_smiles() + "</div>";
+		      if (update_descrs) {
+		        var descrs = JSON.parse(mol.get_descriptors());
+		        var db = document.getElementById("descrs");
+		        db.outerHTML = "<div id='descrs'>" +
+		          "<b>AMW:</b> " + descrs.amw +
+		          "<br /><b>MolLogP:</b> " + descrs.CrippenClogP +
+		          "<br /><b>MFP2:</b> " + mol.get_morgan_fp(2, 128) +
+		          "</div>";
+		      }
+		    }
+		    mol.delete();
+		  }
+		  function sma_callback(text) {
+		    var qmol = RDKitModule.get_qmol(text);
+		    var mol = RDKitModule.get_mol(document.getElementById("smiles_input").value);
+		    if (mol.is_valid() && qmol.is_valid()) {
+		      var mdetails = mol.get_substruct_match(qmol);
+		      var match = JSON.parse(mdetails);
+		      if (match.atoms && match.atoms.length) draw_with_highlights(mol, match);
+		    }
+		    mol.delete();
+		    qmol.delete();
+		  }
+		  function template_callback(text) {
+		    if(text==""){
+		      text = document.getElementById("template_input").value;
+		    }
+		    var qmol = RDKitModule.get_mol(text);
+		    var mol = RDKitModule.get_mol(document.getElementById("smiles_input").value);
+		    if (mol.is_valid() && qmol.is_valid()) {
+		      var mdetails = mol.get_substruct_match(qmol);
+		      var match = JSON.parse(mdetails);
+		      var useCoordgen = document.getElementById("useCoordgen").checked;
+		      mol.generate_aligned_coords(qmol,useCoordgen);
+		      if (match.atoms && match.atoms.length) draw_with_highlights(mol, match);
+		    }
+		    mol.delete();
+		    qmol.delete();
+		  }
+		  function option_changed(cb) {
+		    var smi = document.getElementById('smiles_input').value;
+		    var sma = document.getElementById('smarts_input').value;
+		    if (sma) {
+		      sma_callback(sma);
+		    } else {
+		      callback(smi, false);
+		    }
+		  }
+		  function abbreviation_option_changed(cb) {
+		    var smi = document.getElementById('smiles_input').value;
+		    var mol = RDKitModule.get_mol(smi);
+		    if(document.getElementById('useAbbreviations').checked){
+		      var useLinkers = document.getElementById('useLinkers').checked;
+		      var maxCoverage = +(document.getElementById('maxCoverage').value);
+		      mol.condense_abbreviations(maxCoverage,useLinkers);
+		    }
+		    draw(mol);
+		  }
+		</script>
     </head>
 
     <body>
@@ -40,64 +169,91 @@
         <!-- Hero Start -->
         <section class="d-table w-100">
             <div class="container margin-top-150">
+                <div class="row mb-4">
+							<div class="col-md-3 text-purple page-header">Model Selected:</div>
+                            <div class="col-md-9">
+									<div class="row">
+										<div class="col-md-6">
+		                                    <div class="mb-0 text-purple page-header">
+		                                        Antimalarial OSM
+		                                    </div>
+											<span class="text-red">2022, Ersilia Open Source Initiative</span>
+										</div>
+										<div class="col-md-6">
+											<button class="btn btn-yellow">Select Another Model</button>
+										</div>
+									</div>
+                            </div>
+                </div><!--end row-->
 				
-				<div class="title text-purple page-header">Enter your details below and we will email you once processing is complete</div>
-				
-				<div class="text-red">Average Processing Time: Less than an hour<br></div>
-
-                <div class="mt-4">
-                    <form>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3 position-relative">
-                                    <label class="form-label">Name <span class="text-red">*</span></label>
-                                    <input name="name" id="name" type="text" class="form-control">
-                                </div>
-                            </div><!--end col-->
-                            <div class="col-md-6">
-                                <div class="mb-3 position-relative">
-                                    <label class="form-label">Email <span class="text-red">*</span></label>
-                                    <input name="email" id="email" type="email" class="form-control">
-                                </div> 
-                            </div><!--end col-->
-                            <div class="col-md-6">
-                                <div class="mb-3 position-relative">
-                                    <label class="form-label">Institution</label>
-                                    <input name="institution" id="institution" type="text" class="form-control">
-                                </div>
-                            </div><!--end col-->
-                            <div class="col-md-6">
-                                <div class="mb-3 position-relative">
-                                    <label class="form-label">Position</label>
-                                    <input name="institution" id="institution" type="text" class="form-control">
-                                </div>
-                            </div><!--end col-->
-							
-							
-							<div class="col-md-12">
-	                            <div class="form-check mt-2">
-	                                <input class="form-check-input" type="checkbox" id="flexCheckDefault1">
-	                                <label class="form-check-label" for="flexCheckDefault1">I want to contribute this molecule to the public Ersilia repository
-</label>
-	                            </div>
-							
-	                            <div class="form-check mt-2">
-	                                <input class="form-check-input" type="checkbox"  id="flexCheckDefault1">
-	                                <label class="form-check-label" for="flexCheckDefault1">I want to receive updates on the Ersilia Open Source Initiative</label>
-	                            </div>
+				<h5 class="title mt-4 text-gray">Type in your SMILES</h5>
+					<div class="row">
+					<div class="col-md-6">
+							<div id="smiles-container">
+								<div class="row mt-4">
+						
+									<div class="col-md-6">
+										<input class="form-control text-gray" id="smiles_input" type="text" value="" onkeyup="callback(this.value,true)" required="">
+									</div>
+									<div class="col-md-6">
+			                        	<button class="btn btn-green" id="addmore">+ Add More</button>
+			                        </div>
+								</div>
 							</div>
-                        </div><!--end row-->
-                        <div class="row">
-                            <div class="col-sm-12 mt-4">
-                                <input type="submit" id="submit" name="send" class="btn btn-primary" value="Submit">
-                            </div><!--end col-->
-                        </div><!--end row-->
-                    </form><!--end form-->
-                </div>
+				
+								<div class="row margin-top-40">
+						
+								<div class="col-md-6">
+		                    		<a href="fileuploaded.html"><button class="btn btn-secondary">Upload CSV File</button></a>
+							
+									<button class="btn btn-secondary">Download Example CSV</button>
 
-			<div class="row margin-top-150"></div>
+								</div>
+								</div>
+						
+								<div class="row margin-top-40">
+				
+								<div class="col-md-6">
+		                    		<a href="sendmeresults.html"><button class="btn btn-primary">Start Processing SMILES</button></a>
+								</div>
+				
+								<div class="row margin-top-150"></div>
 
+								</div>
+					</div>
+					<div class="col-md-6">
+
+					    <div id="canvas-div">
+					      <canvas id="rdkit-canvas" width="400" height="300">
+					      </canvas>
+					      <br />
+						  <div style="display: none;">
+						      <input type="checkbox" id="addAtomIndices" name="atomIndices" onclick="option_changed(this);">
+						      <label for="addAtomIndices">atomIndices</label>
+						      <input type="checkbox" id="addBondIndices" name="bondIndices" onclick="option_changed(this);">
+						      <label for="addBondIndices">bondIndices</label>
+						      <input type="checkbox" id="addStereoAnnotation" name="addStereoAnnotation" onclick="option_changed(this);">
+						      <label for="addStereoAnnotation">addStereoAnnotation</label>
+						      <br />
+						      <input type="checkbox" id="explicitMethyl" name="explicitMethyl" onclick="option_changed(this);" />
+						      <label for="explicitMethyl">explicitMethyl</label>
+						      <br />
+						      <input type="text" id="legend" onkeyup="option_changed(this);"><label for="legend">legend</label>
+						      <input type="text" id="legendFontSize" onkeyup="option_changed(this);"><label
+						        for="legendFontSize">legendFontSize</label>
+						      <br />
+						      <input type="number" id="bondLineWidth" onkeyup="option_changed(this);"><label
+						        for="bondLineWidth">bondLineWidth</label>
+							</div>
+
+					    </div>
+					    <div id="molecule" style="display: none;">
+					      <div id="drawing"></div>
+					      <div id="can_smiles"></div>
+					    </div>
+					</div>
 				</div>
+						
             </div><!--end container-->
         </section><!--end section-->
         <!-- Hero End -->
@@ -205,7 +361,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="modalmodeldesc text-gray">Bioactivity signatures of small molecules</div>
-								<div class="modalmodelauthor">2020, Duran-Frigola et al.</div>
+								<div class="modalmodelauthor">2022, Ersilia Open Source Initiative.</div>
 								<div class="sectiontitle">Description</div>
 								<div class="sectionbody">Prediction of the activity against Plasmodium Falciparum in blood stages in vitro due to inhibition of the  PfATPase</div>
 								<div class="sectiontitle">Output</div>
@@ -246,5 +402,18 @@
         <script src="js/feather.min.js"></script>
         <!-- Main Js -->
         <script src="js/app.js"></script>
+		
+		<script>
+			$(".btn-removesmiles").click(function(){
+				console.log("clicked");
+			    removeSmilesRow($(this).attr('id'));                  
+			});
+
+
+			function removeSmilesRow(idnum) {
+				console.log(idnum);
+				$("#formrow"+idnum).remove();
+			}
+		</script>
     </body>
 </html>

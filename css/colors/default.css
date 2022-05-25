@@ -106,11 +106,11 @@
 #topnav .navigation-menu > li:hover > .menu-arrow,
 .work-container.work-primary.work-border,
 .tns-nav button.tns-nav-active {
-    border-color: #4259ed !important;
+    border-color: #50285a !important;
 }
 
 .social-icon li a:hover .fea-social {
-    fill: #4259ed;
+    fill: #50285a !important;
 }
 
 .play-icon i {

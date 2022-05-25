@@ -4,7 +4,7 @@ body{
 }
 
 .text-purple{
-	color: #532657 !important;
+	color: #50285a !important;
 }
 
 .text-gray{
@@ -12,7 +12,7 @@ body{
 }
 
 .text-red{
-	color: #F04E21 !important;
+	color: #faa08c !important;
 }
 
 .heading-title .heading {
@@ -35,8 +35,10 @@ body{
 }
 
 .btn-primary{
-	border-color: #532657 !important;
-    background-color: #532657 !important;
+	color: #ffffff !important;
+	border-color: #50285a !important;
+    background-color: #50285a !important;
+	box-shadow: 0 3px 5px 0 #50285a !important;
 }
 
 .home .btn-primary{
@@ -48,10 +50,21 @@ body{
 	background-color: #904797 !important;
 }
 
+.btn-primary:active{
+	border-color: #50285a !important;
+	background-color: #50285a !important;
+}
+
+.btn-primary:focus{
+	border-color: #50285a !important;
+	background-color: #50285a !important;
+}
+
+
 .btn-secondary{
-	border-color: #532657 !important;
+	border-color: #50285a !important;
 	background-color: white !important;
-	color: #532657 !important;
+	color: #50285a !important;
 }
 
 .btn-secondary:hover{
@@ -60,23 +73,23 @@ body{
 }
 
 .btn-green{
-	border-color: #C6E4B8 !important;
-    background-color: #C6E4B8 !important;
+	border-color: #bee6b4 !important;
+    background-color: #bee6b4 !important;
 	color: #030229 !important;
 }
 
 .btn-red{
-	background-color: #EDA490 !important;
+	background-color: #faa08c !important;
 	color: #7D331F !important;
 }
 
 .btn-yellow{
-	background-color: #F4D78E !important;
-	color: #866718 !important;
+	background-color: #fad782 !important;
+	color: #50285a !important;
 }
 
 .form-control{
-	box-shadow: 0 3px 5px 0 rgb(94 94 94 / 30%);
+	box-shadow: 0 3px 5px 0 #50282a;
 	border: 0px;
 	font-size: 16px;
 }
@@ -110,30 +123,33 @@ body{
 }
 
 .stepnum-container.one{
-	color: #8B6506;
-	background-color: #F4D78E;
+	color: #50285a;
+	background-color: #fad782;
 }
 
 .card-body .one{
-	color: #8B6506;
+	color: #50285a;
+	background-color: #FAFAFB
 }
 
 .stepnum-container.two{
-	color: #C9431E;
-	background-color: #EDA490;
+	color: #50285a;
+	background-color: #faa08c;
 }
 
 .card-body .two{
-	color: #C9431E;
+	color: #50285a;
+	background-color: #FAFAFB
 }
 
 .stepnum-container.three{
-	color: #2F740F;
-	background-color: #C6E4B8;
+	color: #50285a;
+	background-color: #dca0dc;
 }
 
 .card-body .three{
-	color: #2F740F;
+	color: #50285a;
+	background-color: #FAFAFB
 }
 
 .card-body h5{
@@ -142,7 +158,7 @@ body{
 }
 
 .card{
-	background-color: white;
+	background-color: #FAFAFB;
 }
 
 .margin-top-150{
@@ -185,7 +201,7 @@ body{
 .model-author{
 	font-weight: bold;
 	font-size: 14px;
-	color: #F04E21;
+	color: #faa08c;
 }
 
 .model-tags{
@@ -206,15 +222,15 @@ a .indimodeltags {
 }
 
 .tag-purple{
-	background-color: #E4A4DC;
+	background-color: #dca0dc;
 }
 
 .tag-green{
-	background-color: #C6E4B8;
+	background-color: #bee6b4;
 }
 
 .tag-yellow{
-	background-color: #F4D78E;
+	background-color: #fad782;
 }
 
 .pagination{
@@ -222,13 +238,13 @@ a .indimodeltags {
 }
 
 .pagination .page-item.active .page-link{
-	border-color: #532657 !important;
-    background-color: #532657 !important;
+	border-color: #50285a !important;
+    background-color: #50285a !important;
 }
 
 .pagination .page-item .page-link:hover {
-	border-color: #532657;
-    background-color: #532657;
+	border-color: #50285a;
+    background-color: #50285a;
 }
 
 .modal-title{
@@ -249,11 +265,11 @@ a .indimodeltags {
 .modal-body .modalmodelauthor{
 	font-weight: bold;
 	font-size: 14px;
-	color: #F04E21;
+	color: #faa08c;
 }
 
 .modal-body .sectiontitle{
-	color: #C9431E;
+	color: #faa08c;
 	font-weight: 800;
 	font-size: 18px;
 	margin-top: 20px;
